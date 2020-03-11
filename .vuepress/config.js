@@ -8,12 +8,12 @@ module.exports = {
       { text: 'Home', link: '/' },
       {
         text: 'Documentation', items: [
-          { text: 'Quick Start', link: '/#quick-start' },
-          { text: 'Running Test Files', link: '/#running-test-files' },
-          { text: 'Writing Tests', link: '/#writing-tests' },
-          { text: 'Assertions', link: '/#assertions' },
-          { text: 'Block-Form Assertions', link: '/#block-form-assertions' },
-          { text: 'Fixtures', link: '/#fixtures' },
+          { text: 'Quick Start', link: '/Documentation#quick-start' },
+          { text: 'Running Test Files', link: '/Documentation#running-test-files' },
+          { text: 'Writing Tests', link: '/Documentation#writing-tests' },
+          { text: 'Assertions', link: '/Documentation#assertions' },
+          { text: 'Block-Form Assertions', link: '/Documentation#block-form-assertions' },
+          { text: 'Fixtures', link: '/Documentation#fixtures' },
         ]
       },
       {
