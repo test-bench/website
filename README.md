@@ -3,7 +3,7 @@ home: true
 description: 'Design-oriented test framework for Ruby'
 features:
 - title: Simple
-  details: The core context specification DSL contains just a few methods, like `context`, `test`, `assert`, and `refute`.
+  details: The core context specification DSL contains just a few methods, like context, test, assert, and refute.
 - title: Intuitive
   details: TestBench scripts behave just like any other ruby script. No more having to imagine how the test framework executes the test code behind the scenes!
 - title: Powerful
