@@ -17,6 +17,6 @@ TestBench is a no-nonsense testing framework for Ruby aiming to offer precisely 
 
 <div class="hero">
   <p class="action">
-    <a href="/Documentation" class="nav-link action-button">Go To Documentation →</a>
+    <a href="/Documentation.html" class="nav-link action-button">Go To Documentation →</a>
   </p>
 </div>
