@@ -3,9 +3,9 @@ home: true
 description: 'Design-oriented test framework for Ruby'
 features:
 - title: Simple
-  details: Test files are just scripts. No more having to imagine how the test framework executes the test code behind the scenes!
+  details: The core context specification DSL contains just a few methods, like `context`, `test`, `assert`, and `refute`.
 - title: Intuitive
-  details: Context specification DSL precisely honed so that it’s fully comprehensive, yet also happens to be trivial to learn.
+  details: TestBench scripts behave just like any other ruby script. No more having to imagine how the test framework executes the test code behind the scenes!
 - title: Powerful
   details: Define reusable test classes (“Fixtures”) that leverage the TestBench DSL you already know to curb redundancy across test files.
 footer: MIT Licensed | Copyright © 2020-present Nathan Ladd
