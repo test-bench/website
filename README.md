@@ -1,36 +1,22 @@
 ---
 home: true
 description: 'Design-oriented test framework for Ruby'
+features:
+- title: Simple
+  details: Test files are just scripts. No more having to imagine how the test framework executes the test code behind the scenes!
+- title: Intuitive
+  details: Context specification DSL precisely honed so that it’s fully comprehensive, yet also happens to be trivial to learn.
+- title: Powerful
+  details: Define reusable test classes (“Fixtures”) that leverage the TestBench DSL you already know to curb redundancy across test files.
 footer: MIT Licensed | Copyright © 2020-present Nathan Ladd
 ---
 
-TestBench
-=========
-
 TestBench is a no-nonsense testing framework for Ruby aiming to offer precisely what is needed to test well-designed code effectively and easily. In stark contrast to most other testing frameworks, test files are written using a procedural API, not a declarative one, which brings a score of substantial benefits in exchange for largely immaterial drawbacks. As a result, TestBench can be learned very quickly. However, users should not expect it to offer many palliative features that ease the difficulties inherent to working with vast, long-running, or brittle test suites. With that in mind, even those situations can usually be addressed with a little improvising.
 
-Installation
-------------
+Quick Start
+-----------
 
-To install TestBench with Rubygems:
-
-```
-> gem install test_bench
-```
-
-Or, add it to a project's `Gemfile` if using Bundler:
-
-```ruby
-gem 'test_bench', group: :development
-
-# - OR -
-
-group :development do
-  gem 'test_bench'
-end
-```
-
-Next, place a test initialization file at `test/test_init.rb`:
+After adding `test_bench` to your project and installing the gem, place a test initialization file at `test/test_init.rb`:
 
 ```ruby
 # Begin test/test_init.rb
@@ -451,42 +437,14 @@ Recipes
 
 While TestBench lacks direct support for many features commonly found in other frameworks, it is not generally difficult to add those features with a bit of shell scripting and creativity. See the [Recipes page][3] for more information.
 
-Recent Changes
---------------
-
-For a comprehensive list of changes, see [Changes][4]
-
-### 2.2.0 - Sun Mar 8 2019
-
-* The runner, `Run`, has been moved from the CLI namespace (`TestBench::CLI::Run`) to the toplevel TestBench namespace (`TestBench::Run`)
-* The output subsystem has been reworked. The environment variable `TEST_BENCH_VERBOSE` has been removed and its functionality replaced with `TEST_BENCH_OUTPUT_LEVEL`, which can be set to one of the following: `none`, `summary`, `failure`, `pass`, or `debug`. The `debug` level behaves the way that `TEST_BENCH_VERBOSE` used to.
-* The CLI executable, `bench`, has been added back to the project.
-
-### 2.1.1 - Thu Dec 19 2019
-
-* Test files and subdirectories found within directories are sorted by the CLI before being loaded.
-
-### 2.1.0 - Wed Oct 17 2019
-
-* The CLI accepts all of the settings as keyword arguments. Settings supplied to the CLI in this manner will be displayed as the default values by the CLI help text. This allows the CLI settings to be customized on a per-project basis, similar to a per-project configuration file.
-* The CLI::Run class accepts the `exclude_file_pattern` setting as a keyword argument.
-* The output methods `enter_assert_block` and `exit_assert_block` are now supplied the caller location of the corresponding assertion.
-* A bug was fixed in the output implementation that would fail to print outer assertion failures from a block-form assert when the abort on error setting is active.
-
-### 2.0.0 - Tue Oct 15 2019
-
-The changes from TestBench 1 are too numerous to enumerate. See [Changes From TestBench 1 To TestBench 2][5] for an overview of the most significant changes.
-
 License
 -------
 
-Test Bench is licensed under the [MIT license][6].
+Test Bench is licensed under the [MIT license][4].
 
 Copyright © Nathan Ladd
 
-[1]: doc/Recipes.md#using-testbench-without-activation
+[1]: Recipes.md#using-testbench-without-activation
 [2]: https://github.com/test-bench/test-bench-fixture
-[3]: doc/Recipes.md
-[4]: Changes.md
-[5]: doc/Changes-From-TestBench-1-To-TestBench-2.md
-[6]: MIT-License.txt
+[3]: Recipes.md
+[4]: MIT-License.txt
