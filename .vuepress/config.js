@@ -6,9 +6,9 @@ module.exports = {
     activeHeaderLinks: true,
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Quick Start', link: '/#quick-start' },
       {
         text: 'Documentation', items: [
+          { text: 'Quick Start', link: '/#quick-start' },
           { text: 'Running Test Files', link: '/#running-test-files' },
           { text: 'Writing Tests', link: '/#writing-tests' },
           { text: 'Assertions', link: '/#assertions' },
@@ -18,7 +18,6 @@ module.exports = {
       },
       {
         text: 'Recipes',
-        link: '/Recipes',
         items: [
           { text: 'Running All Tests in a Single Directory', link: '/Recipes#running-all-tests-in-a-single-directory' },
           { text: 'Using TestBench Without Monkey Patching', link: '/Recipes#using-testbench-without-monkey-patching' },
