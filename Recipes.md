@@ -1,3 +1,9 @@
+---
+home: false
+description: 'Design-oriented test framework for Ruby'
+footer: MIT Licensed | Copyright © 2020-present Nathan Ladd
+---
+
 Recipes
 =======
 
