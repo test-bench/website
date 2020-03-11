@@ -437,13 +437,6 @@ Recipes
 
 While TestBench lacks direct support for many features commonly found in other frameworks, it is not generally difficult to add those features with a bit of shell scripting and creativity. See the [Recipes page][3] for more information.
 
-License
--------
-
-Test Bench is licensed under the [MIT license][4].
-
-Copyright © Nathan Ladd
-
 [1]: Recipes.md#using-testbench-without-activation
 [2]: https://github.com/test-bench/test-bench-fixture
 [3]: Recipes.md
