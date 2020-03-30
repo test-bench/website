@@ -1,5 +1,6 @@
 ---
 home: true
+heroImage: /test-bench-icon-130x115.png
 description: 'Design-oriented test framework for Ruby'
 features:
 - title: Simple
