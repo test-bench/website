@@ -1,6 +1,6 @@
 module.exports = {
   title: 'TestBench',
-  description: 'Design-oriented test framework for Ruby',
+  description: 'A Principled Test Framework for Ruby',
   dest: './_build',
   themeConfig: {
     activeHeaderLinks: true,

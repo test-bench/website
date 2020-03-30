@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /test-bench-icon-130x115.png
-description: 'Design-oriented test framework for Ruby'
+description: 'A Principled Test Framework for Ruby'
 features:
 - title: Simple
   details: The core context specification DSL contains just a few methods, like context, test, assert, and refute.
