@@ -3,15 +3,19 @@ home: true
 heroImage: /test-bench-icon-130x115.png
 description: 'A Principled Test Framework for Ruby'
 features:
+
 - title: Simple
   details: >
-    The TestBench API is just four methods: assert, refute, context, and test. Writing tests in TestBench is just programming. There's nothing hidden.  There's no guessing. There's no complexity. It's as simple or as complex as you want to make it.
+    The TestBench API is just four methods: assert, refute, context, and test. There's nothing hidden. There's no guessing, no monkey-patching, no configuration, and no complexity. It's just programming.
+
 - title: Principled
   details: >
-    Just as simplicity is a TestBench core value, so is clean code and design principles. TestBench encourages clean test design and doesn't hide cumbersome test design. It has no opinions, but it makes no apologies. It's a principled tool for principled test design.
-- title: Just Ruby
+    TestBench encourages clean test design that reflect fundamental principles. It has no superfluous syntax leading to cumbersome tests. It has no opinions, but makes no apologies.
+
+- title: It's Just Ruby
   details: >
-    Tests are are plain old Ruby scripts that run like plain old Ruby scripts. There's no special runner to configure. It's just Ruby. The way that tests read are the way they run. Variables are scoped just like they are in Ruby. If you know Ruby, you know TestBench.
+    Tests in TestBench are just Ruby scripts. They execute from top to bottom with no special runner and no special way to declare variables. If you know Ruby, you know TestBench.
+
 footer: MIT Licensed | Copyright © 2020-present Nathan Ladd
 ---
 
