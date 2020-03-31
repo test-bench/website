@@ -4,11 +4,14 @@ heroImage: /test-bench-icon-130x115.png
 description: 'A Principled Test Framework for Ruby'
 features:
 - title: Simple
-  details: The core context specification DSL contains just a few methods, like context, test, assert, and refute.
-- title: Intuitive
-  details: TestBench scripts behave just like any other ruby script. No more having to imagine how the test framework executes the test code behind the scenes!
-- title: Powerful
-  details: Define reusable test classes (“Fixtures”) that leverage the TestBench DSL you already know to curb redundancy across test files.
+  details: >
+    The TestBench API is just four methods: assert, refute, context, and test. Writing tests in TestBench is just programming. There's nothing hidden.  There's no guessing. There's no complexity. It's as simple or as complex as you want to make it.
+- title: Principled
+  details: >
+    Just as simplicity is a TestBench core value, so is clean code and design principles. TestBench encourages clean test design and doesn't hide cumbersome test design. It has no opinions, but it makes no apologies. It's a principled tool for principled test design.
+- title: Just Ruby
+  details: >
+    Tests are are plain old Ruby scripts that run like plain old Ruby scripts. There's no special runner to configure. It's just Ruby. The way that tests read are the way they run. Variables are scoped just like they are in Ruby. If you know Ruby, you know TestBench.
 footer: MIT Licensed | Copyright © 2020-present Nathan Ladd
 ---
 
