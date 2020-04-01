@@ -1,7 +1,10 @@
 Home
 Philosophy
+  Best Practices
 User Guide
   Getting Started
+    Install
+    Add to Project
   Writing Tests
     Structure
     Assertions
