@@ -1,17 +1,48 @@
 Home
+
 Philosophy
+  - [quote about angels and marble]
+  - introductory text
+  - principled
+  - use no mechanism that occludes clean test design and clean test code
+  - don't put into the framework for things the OS already does
+    - refer to recipes
+  - comparison to other test frameworks
+    - my_tests_arent_randomized_and_dude_is_a_douche
+  - include every feature that great tests need, and no feature that only bad tests need
+  - note on human cognition, readability vs scanability
   Best Practices
+    - introduce explaining variable
+    - no "when", "should", etc. it's always implied. use it as guardrails for beginners, then remove it later. it's an artifice used as a teaching device.
+
 User Guide
   Getting Started
     Install
     Add to Project
   Writing Tests
-    Structure
+    Test File Structure
+      - nesting
+      - contexts are "subjects"
+      - test blocks
+      - comment
+    Variables and Scope
     Assertions
+      - assert
+      - refute
+      - assert_raises
+      - refute_raises
+      - block form
+    Comments
   Running Tests
+    README
+      - just ruby
+    - environment variables
+    - switches
     Output
+    Bench Executable
   Fixtures
   Recipes
+
 Examples
   Quickstart
   Example Projects
