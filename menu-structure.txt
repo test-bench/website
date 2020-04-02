@@ -17,8 +17,10 @@ Philosophy
 
 User Guide
   Getting Started
-    Install
-    Add to Project
+    - orientation to the documentation (learning guide; facilitated flow)
+    - install
+    - add to Project
+    - point to directory structure
   Writing Tests
     Test File Structure
       - nesting
