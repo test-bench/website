@@ -16,7 +16,7 @@ features:
   details: >
     Tests in TestBench are just Ruby scripts. They execute from top to bottom with no special runner and no special way to declare variables. If you know Ruby, you know TestBench.
 
-footer: MIT Licensed | Copyright © 2020-present Nathan Ladd
+footer: MIT Licensed | Copyright © 2015-present Nathan Ladd
 ---
 
 <!--
