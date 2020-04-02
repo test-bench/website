@@ -90,6 +90,6 @@ end
 ```
 <div class="hero">
   <p class="action">
-    <a href="/Documentation.html" class="nav-link action-button">Go To Documentation →</a>
+    <a href="/user-guide/getting-started.html" class="nav-link action-button">Get Started →</a>
   </p>
 </div>
