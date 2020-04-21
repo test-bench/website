@@ -9,7 +9,7 @@ module.exports = {
         text: 'Home', link: '/'
       },
       {
-        text: 'Philosophy', link: '/philosophy.md'
+        text: 'Values', link: '/values.md'
       },
       {
         text: 'User Guide', items: [
