@@ -1,43 +1,18 @@
 ---
-sidebar: auto
+sidebar: none
+sidebarDepth: 0
 ---
 
-# Values
+# TestBench Values
 
-## TestBench Values Simplicity
+## Simplicity
 
-Above all, TestBench values simplicity
+TestBench values simplicity above all things. Small, cohesive API with no superfluous elements. No wasted motion. No stopping to figure things out. No API members that have to be memorized rather than simply intuited. TestBench requires no executable other than Ruby, and tests execute exactly the way they read, as Ruby scripts.
 
-- clean code (explaining variable)
-  - the test code itself is self-explanatory, rather than relying on an elaborate API to achieve it
-- relies on principles
-- literate code is the responsibility of the programmer, not the tool
-- you have to design, and therefore you must pursue an understanding of design, design principles, design qualities, and design patterns
-- use the file system
-- usability; create a TOC
-- no monkey patching
-- clarity; clarify
-- don't confuse simplicity for things you already understand. if you're not a Ruby coder, the problem isn't that TB isn't simple, but that you don't have a grasp of Ruby and software design fundamentals
+## Principles
 
-## Who It's For
+TestBench promotes clean, principled test design. By dramatically reducing the surface area of the API, it limits the choices that developers can make to only choices that benefit the outcomes of clean design. TestBench itself respects fundamental design principles, which allows the code in TestBench to be leveraged exactly as a developer expects, without surprises.
 
-- advanced
-- simplicity is advanced
-- no training wheels
-- it's for people comfortable with Ruby and with programming
+## Maturity
 
-
-
-<!--
-## Simple
-
-The TestBench API is just four methods: assert, refute, context, and test. There's nothing hidden. There's no guessing, no monkey-patching, no configuration, and no complexity. It's just programming.
-
-## Principled
-
-TestBench encourages clean test design that reflect fundamental principles. It has no superfluous syntax leading to cumbersome tests. It has no opinions, but makes no apologies.
-
-## It's Just Ruby
-
-Tests in TestBench are just Ruby scripts. They execute from top to bottom with no special runner and no special way to declare variables. If you know Ruby, you know TestBench.
--->
+The audience for TestBench is arguably smaller and more constrained, and that's on-purpose. TestBench is intended for more experienced developers and test designers. Writing tests with TestBench is just programming, and its users are programmers who are comfortable with that. TestBench doesn't discourage beginners. It does encourage them to learn more about the fundamentals of software design and development so that the power and subtlety of technique is the deciding factor, rather than perishable and crude factors, like mere tooling.
