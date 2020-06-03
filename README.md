@@ -16,44 +16,8 @@ features:
   details: >
     Tests in TestBench are just Ruby scripts. They execute from top to bottom with no special runner and no special way to declare variables. If you know Ruby, you know TestBench.
 
-footer: MIT Licensed | Copyright © 2015-present Nathan Ladd
+footer: MIT Licensed | Copyright © 2020-present Nathan Ladd
 ---
-
-<!--
-```ruby
-context "Thing" do
-  context "Correct Data" do
-
-    thing = Thing.new(Controls::Thing.correct_data)
-
-    Save.(thing)
-
-
-  end
-
-  context "Incorrect Data" do
-  end
-
-
-
-    context "Save" do
-
-
-
-    test "Saved" do
-      assert(value * 0 == 0)
-    end
-  end
-
-  context "Addition" do
-    test "Any value added by zero is the value" do
-      assert(value + 0 == value)
-    end
-  end
-end
-
-# End test/automated/arithmetic.rb
-``` -->
 
 ```ruby
 context "Arithmetic" do
