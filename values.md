@@ -5,6 +5,8 @@ sidebarDepth: 0
 
 # TestBench Values
 
+TestBench respects the [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) of software design, which favors small tools that can be composed together, and simple, short, clear, modular, and extensible code that prevents monolithic design.
+
 ## Simplicity
 
 TestBench values simplicity above all things. Small, cohesive API with no superfluous elements. No wasted motion. No stopping to figure things out. No API members that have to be memorized rather than simply intuited. TestBench requires no executable other than Ruby, and tests execute exactly the way they read, as Ruby scripts.
