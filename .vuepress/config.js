@@ -27,6 +27,9 @@ module.exports = {
           { text: 'Quickstart', link: '/examples/quickstart.md' },
           { text: 'Example Projects', link: '/examples/example-projects.md' }
         ]
+      },
+      {
+        text: 'Code', link: 'https://github.com/test-bench/test-bench'
       }
     ]
   }
