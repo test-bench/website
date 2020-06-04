@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /test-bench-icon-130x115.png
-description: 'A Principled Test Framework for Ruby'
+description: 'Principled Test Framework for Ruby'
 features:
 
 - title: Simple

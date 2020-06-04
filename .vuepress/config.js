@@ -1,6 +1,6 @@
 module.exports = {
   title: 'TestBench',
-  description: 'A Principled Test Framework for Ruby',
+  description: 'Principled Test Framework for Ruby',
   dest: './_build',
   themeConfig: {
     activeHeaderLinks: true,
@@ -15,10 +15,10 @@ module.exports = {
         text: 'User Guide', items: [
           { text: 'Getting Started', link: '/user-guide/getting-started.md' },
           { text: 'Writing Tests', link: '/user-guide/writing-tests.md' },
-          { text: 'Running Tests', link: '/user-guide/running-tests.md' },
           { text: 'Fixtures', link: '/user-guide/fixtures.md' },
-          { text: 'Tips', link: '/user-guide/tips.md' },
-          { text: 'Recipes', link: '/user-guide/recipes.md' }
+          { text: 'Running Tests', link: '/user-guide/running-tests.md' },
+          { text: 'Recipes', link: '/user-guide/recipes.md' },
+          { text: 'Tips', link: '/user-guide/tips.md' }
         ]
       },
       {

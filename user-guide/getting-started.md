@@ -47,7 +47,7 @@ TestBench.activate
 
 Activating TestBench with `TestBench.activate` makes the core DSL available in test files.
 
-The effect of activating TestBench is very limited. It adds a method named `context` to Ruby's `main` object.
+The effect of activating TestBench is very limited. It adds a method named `context` to Ruby's `main` object, which is the Ruby _runner_, and has no effects on any other objects or classes in the Ruby system.
 
 It's not strictly necessary to activate TestBench in order to use it. See the [Using TestBench Without Activation recipe](/user-guide/recipes.md#using-testbench-without-activation) for specifics.
 

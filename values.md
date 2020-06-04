@@ -5,7 +5,7 @@ sidebarDepth: 0
 
 # TestBench Values
 
-TestBench respects the [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) of software design, which favors small tools that can be composed together, and simple, short, clear, modular, and extensible code that prevents monolithic design.
+TestBench respects the [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) of software design, which favors small tools that can be composed together, and simple, short, clear, modular, and extensible code that avoids the limits of monolithic design.
 
 ## Simplicity
 
