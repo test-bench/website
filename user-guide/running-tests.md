@@ -22,11 +22,13 @@ Some Context
 
 ## Batch Runner
 
+Runs a batch of files and directories.
+
+**API**
+
 ```ruby
 TestBench::Run.(*paths, exclude_file_pattern: nil)
 ```
-
-Run a batch of files and directories.
 
 **Parameters**
 

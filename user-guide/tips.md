@@ -18,4 +18,5 @@ _ exclude underscore-prefixed TestBench::CLI.(
   exclude_file_pattern: %r{/_\z}
 )
 - isolate tests because there's no random ordering
-
+- think "fixtures" rather than "matcher". it's just an object.
+- provide fixtures with your libraries
