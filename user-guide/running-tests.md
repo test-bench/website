@@ -44,9 +44,7 @@ Here is an example of the batch runner being invoked from a file named `automate
 ```ruby
 # test/automated.rb
 
-TestBench::Run.('test/some_directory',
-  exclude_file_pattern: /\/_|_init\.rb\z/
-)
+TestBench::Run.()
 ```
 
 ### Batch Runner Output

@@ -36,6 +36,8 @@ class SomeFixture
 end
 ```
 
+If the fixture class implements a method named `build`, that method will be used to construct an instance rather than the initializer, leaving the developer the freedom to either implement the `initialize` method or not, or implement it whatever is preferred.
+
 ## Implementing Fixtures
 
 The TestBench API is just Ruby methods. There's no special syntax to invoke TestBench API methods, or any special rules or setup.
@@ -219,6 +221,6 @@ SomeFixture
 
 ## Distributing Fixtures with a Library
 
-Libraries can provide a set of fixtures that users of the library can use to test code that leverages the library.
+Libraries can provide a set of fixtures that users of the library can leverage to test code that uses the library.
 
 A library that ships a set of fixtures doesn't have to take a dependency on the entirety of TestBench. The `TestBench::Fixture` namespace is its own self-contained package. That package is safe to be packaged with production code, whereas TestBench, being a test framework, should not be distributed with production code.
