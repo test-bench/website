@@ -6,11 +6,11 @@ features:
 
 - title: Simple
   details: >
-    The TestBench API is just four methods: assert, refute, context, and test. There's nothing hidden. There's no guessing, no monkey-patching, no configuration, and no complexity. It's just programming.
+    The TestBench core API has just four methods. There's nothing hidden. There's no guessing, no monkey-patching, no configuration, and no complexity. It's just programming.
 
 - title: Principled
   details: >
-    TestBench encourages clean test design that reflects fundamental principles. It has no superfluous syntax leading to cumbersome tests. It has no opinions, but makes no apologies.
+    TestBench encourages clean test design that reflects fundamental principles. It has no superfluous syntax that leads to cumbersome tests. It has no opinions, but makes no apologies.
 
 - title: It's Just Ruby
   details: >

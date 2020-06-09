@@ -5,7 +5,7 @@ sidebarDepth: 1
 
 # Writing Tests
 
-TestBench's API is just five core methods: `context`, `test`, `assert`, `comment`, and `fixture`. Other methods, such as `refute`, are built in terms of the core methods.
+TestBench's core API is just a handful of methods, including `context`, `test`, `assert`, `comment`, and `fixture`. Other methods, such as `refute` and `assert_raises` are built in terms of the core methods.
 
 ## Context and Test Blocks
 
