@@ -10,7 +10,7 @@ features:
 
 - title: Principled
   details: >
-    TestBench encourages clean test design that reflect fundamental principles. It has no superfluous syntax leading to cumbersome tests. It has no opinions, but makes no apologies.
+    TestBench encourages clean test design that reflects fundamental principles. It has no superfluous syntax leading to cumbersome tests. It has no opinions, but makes no apologies.
 
 - title: It's Just Ruby
   details: >
