@@ -10,7 +10,7 @@ sidebarDepth: 0
 ### Via RubyGems
 
 ``` bash
-> gem install eventide-postgres
+> gem install test_bench
 ```
 
 ### Via Bundler
