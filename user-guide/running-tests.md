@@ -12,7 +12,7 @@ TestBench doesn't require the use of any special test runner. It's designed so t
 Run test files like any script file by passing the file name to the `ruby` command.
 
 ```
-> ruby test/automated/example.rb
+> ruby test/automated/some_test.rb
 Some Context
   Some test
   Some other test
@@ -92,7 +92,7 @@ The `bench` executable can be used to run individual test files or directories c
 To run a single test file, specify the file path as a command line argument.
 
 ``` bash
-> bench test/automated/example.rb
+> bench test/automated/some_test.rb
 ```
 
 ### Running a Directory
@@ -114,7 +114,7 @@ This default can be changed by setting the environment variable `TEST_BENCH_TEST
 Test files and directories can be piped into the CLI via standard input ("stdin").
 
 ``` bash
-> echo "test/automated/example.rb" | bench
+> echo "test/automated/some_test.rb" | bench
 
 > echo "test/automated/some_directory" | bench
 ```
