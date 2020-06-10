@@ -32,6 +32,26 @@ context do
 end
 ```
 
+## Separate Automated Tests from Interactive Tests
+
+Some tests should always be executed with the intention of having an operator eye-balling the output. Usually these are "final inspection" tests where the operator isn't really expecting to find any problems, but that final step of having a human operator perform interactive tests is critical to being able to certify the software as being de facto verified.
+
+Interactive testing is a necessary and healthy part of testing practice. It's neither something that should be eliminated or that _can_ be eliminated.
+
+Separate automated tests from interactive tests by putting them in separate directories under your principal `test` directory.
+
+``` bash{4,6}
+|-test
+| |-test_init.rb
+| |-automated.rb
+| |-automated
+| | |-automated_init.rb
+| |-interactive
+| | |-interactive_init.rb
+```
+
+Note that interactive tests are not intended to be run as a batch in an automated fashion, and therefore, there's no `interactive.rb` batch runner on the `test` directory.
+
 ## Use Anonymous Context Blocks for Scoping
 
 You may find that you need to use Ruby's lexical scoping to isolate test state.
