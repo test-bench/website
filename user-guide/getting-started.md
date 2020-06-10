@@ -66,5 +66,3 @@ context "Some Example" do
   end
 end
 ```
-
-[View more examples](/examples/)
