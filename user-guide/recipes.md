@@ -29,7 +29,7 @@ In cases where gems are installed locally within a project, the `bench` executab
 
 To use TestBench without activating it, wrap test code in an outer `TestBench.evaluate` block.
 
-```ruby
+``` ruby{1}
 TestBench.evaluate do
   context "Example Context" do
     test "Pass" do
@@ -47,9 +47,9 @@ TestBench.evaluate do
 end
 ```
 
-TestBench never modifies Ruby's `Object` class. It modifies Ruby's `main` object, which is Ruby's runner. The only effect of activating TestBench is the addition of a method named `context` to the `main` object.
+TestBench never modifies Ruby's `Object` class. It modifies Ruby's `main` object, which is Ruby's script runner. The effect of activating TestBench is the addition of the methods `context`, `test`, `assert`, `refute`, `assert_raises`, `refute_raises`, and `comment`,  to the `main` object.
 
-The `main` object is just the runner object where Ruby executes script files. Adding TestBench's rather small API to the runner is extremely unlikely to cause the problems experienced when test frameworks presume to modify `Object`, `BasicObject`, or `Kernel`, which causes sweeping changes to the entire Ruby environment, and all the classes and objects within it.
+The `main` object is just the runner object within which Ruby executes script files. Adding TestBench's rather small API to the runner is extremely unlikely to cause the problems experienced when test frameworks presume to modify `Object`, `BasicObject`, or `Kernel`, which causes sweeping changes to the entire Ruby environment and all the classes and objects within it.
 
 ## Randomize Test Execution Order
 
