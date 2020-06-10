@@ -194,7 +194,7 @@ context "SomeFixture" do
   some_fixture.()
 
   context "Included in Something Else" do
-    passed = some_fixture.test_session.passed?('Included in Something Else')
+    passed = some_fixture.test_session.test_passed?('Included in Something Else')
 
     test "Passed" do
       assert(passed)
@@ -202,7 +202,7 @@ context "SomeFixture" do
   end
 
   context "Twice as long as something" do
-    failed = some_fixture.test_session.failed?('Twice as long as something')
+    failed = some_fixture.test_session.test_failed?('Twice as long as something')
 
     test "Failed" do
       assert(failed)
