@@ -27,21 +27,23 @@ In cases where gems are installed locally within a project, the `bench` executab
 
 [Activating](/user-guide/getting-started.md#-initialize-testbench) TestBench makes the core DSL available in test files.
 
-To use TestBench without activating it, wrap test code in an outer `TestBench.evaluate` block.
+To use TestBench without activating it, wrap test code in an outer `TestBench.context` block.
+
+``` ruby{1}
+TestBench.context "Example Context" do
+  test "Pass" do
+    assert(true)
+  end
+end
+```
+
+Alternatively, the test code can be wrapped in a `TestBench.evaluate` block.
 
 ``` ruby{1}
 TestBench.evaluate do
   context "Example Context" do
     test "Pass" do
       assert(true)
-    end
-
-    test "Assertion failure" do
-      assert(false)
-    end
-
-    test "Error" do
-      fail "Some error"
     end
   end
 end
