@@ -125,7 +125,7 @@ To write custom output classes, mix in the [TestBench::Fixture::Output module](h
 
 ## Re-Run Failed Tests
 
-To have TestBench re-run failed test files, the failed test files firt need to be printed to `stdout`. The list of failed test files will then be piped into the `bench` command.
+To have TestBench re-run failed test files, the failed test files are first printed to `stdout`. The list of failed test files will then be piped into the `bench` command.
 
 The following script will run the test files contained in `test/automated` and print the names of files that have failed to `stdout`.
 
