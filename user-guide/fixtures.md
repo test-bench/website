@@ -15,7 +15,9 @@ A fixture is just a plain old Ruby object that includes the TestBench API. A fix
 
 ### Callable Object
 
-The only requirement places on a fixture's API is that it implements Ruby's _callable object_ protocol by implementing the `call` method, and that the signature of the method is parameterless.
+The only requirement placed on a fixture's API is that it implements Ruby's _callable object_ protocol by implementing the `call` method, and that the signature of the method is parameterless.
+
+Alternatively, if the `call` method is not implemented on a fixture, then a [block must be given](#additional-block). When a block is given, the fixture object doesn't have to implement the callable object protocol. If `call` is implemented and a block is given, the block has precedence.
 
 ### Fixture State and the Initializer
 
@@ -121,6 +123,8 @@ The `fixture` method also shares the running test script's output object with th
 ### Additional Block
 
 When the generalization provided by a fixture is not enough, the fixture can be specialized for a particular circumstance by supplying an additional block of test code.
+
+When a block is given, the fixture object doesn't have to implement the [callable object protocol](#callable-object).
 
 ``` ruby
 context "Other Context" do
