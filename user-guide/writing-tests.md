@@ -152,10 +152,14 @@ When tests fail, it is often necessary to see details of the test scenario itsel
 context "Some Context" do
   test "Passing test" do
     detail "Will not be printed"
+
+    assert(true)
   end
 
   test "Failing test" do
     detail "Will be printed"
+
+    assert(false)
   end
 end
 ```
