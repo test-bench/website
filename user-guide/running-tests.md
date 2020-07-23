@@ -137,16 +137,17 @@ Informational Options
 
 Configuration Options
     -a, --[no-]abort-on-error        Exit immediately after any test failure or error (Default: off)
+    -d, --[no-]detail [DETAIL]       Always show (or hide) details (Default: failure)
     -x, --[no-]exclude PATTERN       Do not execute test files matching PATTERN (Default: /_init.rb$/)
+    -l, --log-level LEVEL            Set the internal logging level to LEVEL (Default: fatal)
     -o PATTERN,                      Omit backtrace frames matching PATTERN (Default: /test_bench/)
         --[no-]omit-backtrace
-    -l [none|summary|failure|pass|debug],
-        --output-level               Sets output level (Default: pass)
     -s [on|off|detect],              Render output coloring and font styling escape codes (Default: detect)
         --output-styling
     -p                               Do not fail the test run if there are deactivated tests or contexts, e.g. _test or _context (Default: off)
         --[no-]permit-deactivated-tests
     -r, --[no-]reverse-backtraces    Reverse order of backtraces when printing errors (Default: off)
+    -v, --[no-]verbose               Increase output verbosity (Default: off)
 
 Paths to test files (and directories containing test files) can be given after any command line arguments or via STDIN (or both).
 If no paths are given, a default path (test/automated) is scanned for test files.
@@ -154,12 +155,13 @@ If no paths are given, a default path (test/automated) is scanned for test files
 The following environment variables can also control execution:
 
     TEST_BENCH_ABORT_ON_ERROR          Same as -a or --abort-on-error
+    TEST_BENCH_DETAIL                  Same as -d or --detail
     TEST_BENCH_EXCLUDE_FILE_PATTERN    Same as -x or --exclude-file-pattern
+    TEST_BENCH_LOG_LEVEL               Same as -l or --log-level
     TEST_BENCH_OMIT_BACKTRACE_PATTERN  Same as -o or --omit-backtrace-pattern
-    TEST_BENCH_OUTPUT_LEVEL            Same as -l or --output-level
     TEST_BENCH_OUTPUT_STYLING          Same as -s or --output-styling
     TEST_BENCH_FAIL_DEACTIVATED_TESTS  Opposite of -p or --permit-deactivated-tests
     TEST_BENCH_REVERSE_BACKTRACES      Same as -r or --reverse-backtraces
+    TEST_BENCH_VERBOSE                 Same as -v or --reverse-backtraces
 
-Finally, the VERBOSE environment variable can set the output level to debug. If given, VERBOSE will take precedence over TEST_BENCH_OUTPUT_STYLING.
 ```
