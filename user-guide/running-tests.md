@@ -129,7 +129,7 @@ Executing `bench` the `--help` or `-h` switches will print descriptions of the s
 
 ``` bash
 > bench --help
-Usage: ./script/bench [options] [paths]
+Usage: bench [options] [paths]
 
 Informational Options
     -h, --help                       Print this help message and exit successfully
