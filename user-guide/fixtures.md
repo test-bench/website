@@ -9,7 +9,7 @@ A fixture is a pre-defined, reusable test abstraction. The objects under test ar
 
 To get a better understanding of fixtures, imagine a regular test file, but the object (or objects) under test can be swapped so that the same standardized test implementation can be used against multiple objects.
 
-A fixture is just a plain old Ruby object that includes the TestBench API. A fixture has access to the same API that any TestBench test would. By including the `TestBench::Fixture` module into a Ruby object, the object acquires all of the methods available to a test script, including `context`, `test`, `assert`, `refute`, `assert_raises`, `refute_raises`, and `comment`.
+A fixture is just a plain old Ruby object that includes the TestBench API. A fixture has access to the same API that any TestBench test would. By including the `TestBench::Fixture` module into a Ruby object, the object acquires all of the methods available to a test script, including `context`, `test`, `assert`, `refute`, `assert_raises`, `refute_raises`, `comment`, and `detail`.
 
 ## Fixture API
 

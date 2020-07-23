@@ -144,6 +144,22 @@ context "Some Context" do
 end
 ```
 
+## Details
+
+When tests fail, it is often necessary to see details of the test scenario itself in order to diagnose the failure. However, it is generally undesirable to see information about the test scenario when reading the output from a test file that passes. For that reason, _detailed_ output can be printed with `detail`:
+
+```ruby
+context "Some Context" do
+  test "Passing test" do
+    detail "Will not be printed"
+  end
+
+  test "Failing test" do
+    detail "Will be printed"
+  end
+end
+```
+
 ## Assertions
 
 TestBench offers four assertion methods: `assert`, `refute`, `assert_raises`, and `refute_raises`.
@@ -261,34 +277,24 @@ assert_raises(RuntimeError, strict: false) do
 end
 ```
 
-### Block-Form Assertions
+## Specialized Assertions and Details
 
-In addition to its more basic form, `assert` can also take an optional block containing test code. All of TestBench’s facilities can be used inside a block-form assertion, including `context`, `test`, `assert`, `refute`, `assert_raises`, `refute_raises`, and `comment`. All tests performed by the block must pass in order to satisfy the block-form assertion.
+Test details are printed only when the test file fails, allowing the output to convey useful information about the failure. This allows for declaring more specialized assertions that print all information that might be pertinent to the end user debugging the failure.
 
-The block-form assertion builds on the basic TestBench features to provide domain-specific assertions composed of lower-level assertions, as well as context blocks, test blocks, comments, and all other basic TestBench features.
+TestBench itself uses details in the `assert_raises` and `refute_raises` assertions to convey what exceptions (if any) were raised, which exceptions were expected, etc.
 
-Test output produced by the block is printed only when the assertion fails, allowing the block to convey useful details about the failure.
-
-When a block is passed to `assert`, a positional argument must not be passed along with it.
-
-The block given to a block-form assertion must perform at least one assertion, otherwise the block will fail.
-
-TestBench itself uses block-form assertions to compose the `assert_raises` and `refute_raises` assertions.
-
-An example of a block-form assertion:
+An example of using details to provide extra output for a higher level assertion:
 
 ```ruby
-context "Block-form Assertion Example" do
+context "Detail Example" do
   def assert_json(string)
-    assert do
-      comment "Assert JSON: #{string.to_s[0..100]}"
+    detail "Assert JSON: #{string.to_s[0..100]}"
 
-      assert(string.is_a?(String))
+    assert(string.is_a?(String))
 
-      test "Can be parsed as JSON" do
-        refute_raises(JSON::ParserError) do
-          JSON.parse(string)
-        end
+    test "Can be parsed as JSON" do
+      refute_raises(JSON::ParserError) do
+        JSON.parse(string)
       end
     end
   end
@@ -318,18 +324,21 @@ end
 Here is the output of running the above test. Notice that, while the passing test case prints no output, the failing test case prints out detailed failure information:
 
 ```
-Block-form Assertion Example
+Detail Example
   Pass
+    Assert JSON: { "someKey": "some-value" }
+    Can be parsed as JSON
+      Prohibited Error: JSON::ParserError (strict)
+      (No error was raised)
   Failure
-    test/automated/block_form_assertions/example.rb:7:in `assert_json': Assertion failed (TestBench::Fixture::AssertionFailure)
-      Assert JSON: not-a-json-document
-        Prohibited Error: JSON::ParserError (strict)
-        Raised Error: #<JSON::ParserError: 767: unexpected token at 'not-a-json-document'>
-      Can be parsed as JSON
-        test/automated/block_form_assertions/example.rb:13:in `block (2 levels) in assert_json': Assertion failed (TestBench::Fixture::AssertionFailure)
+    Assert JSON: not-a-json-document
+    Can be parsed as JSON
+      Prohibited Error: JSON::ParserError (strict)
+      Raised Error: #<JSON::ParserError: 783: unexpected token at 'not-a-json-document'>
+      scratch/json_example.rb:14:in `block in assert_json': Assertion failed (TestBench::Fixture::AssertionFailure)
 ```
 
-The block-form of assert allows TestBench to offer detailed assertion failure output similar to other testing frameworks, but it offers two significant advantages over them:
+Specialized assertions with TestBench can offer detailed assertion failure output similar to other testing frameworks, but it offers two significant advantages over them:
 
 - Specialized assertions are implemented using the same interface that TestBench users already know (versus, for instance, RSpec’s matcher API which is entirely separate from its testing DSL)
-- Output from block-form assertions can be printed even when the assertions pass, by setting the output level to debug, either via passing `--output-level debug` to the bench executable, or by setting the `TEST_BENCH_OUTPUT_LEVEL` environment variable to `debug`.
+- Output from block-form assertions can be printed even when the assertions pass, by setting the output level to debug, either via passing `--detail` to the bench executable, or by setting `TEST_BENCH_DETAIL` environment variable to `on`.
