@@ -249,17 +249,9 @@ end
 assert_raises(RuntimeError, 'Some error message') do
   raise 'Some other error message'
 end
-
-# Passes
-refute_raises(RuntimeError, 'Some error message') do
-  raise 'Some other error message'
-end
-
-# Fails
-refute_raises(RuntimeError, 'Some error message') do
-  raise 'Some error message'
-end
 ```
+
+Unlike `assert_raises`, `refute_raises` does not accept an optional error message.
 
 #### Strict Error Class Matching
 
