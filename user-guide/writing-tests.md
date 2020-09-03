@@ -144,6 +144,14 @@ context "Some Context" do
 end
 ```
 
+Multiple lines of text can be given as arguments to `comment`, and each will be indented at the same level as the first:
+
+```ruby
+context "Some Context" do
+  comment "Multiline", "Comment", "Example"
+end
+```
+
 ## Details
 
 When tests fail, it is often necessary to see details of the test scenario itself in order to diagnose the failure. However, it is generally undesirable to see information about the test scenario when reading the output from a test file that passes. For that reason, _detailed_ output can be printed with `detail`:
@@ -158,6 +166,18 @@ context "Some Context" do
 
   test "Failing test" do
     detail "Will be printed"
+
+    assert(false)
+  end
+end
+```
+
+Like comments, multiple lines of text can be given to `detail`, and each will be indented at the same level as the first:
+
+```ruby
+context "Some Context" do
+  test "Failing test" do
+    detail "Multiline", "Detail", "Example"
 
     assert(false)
   end
