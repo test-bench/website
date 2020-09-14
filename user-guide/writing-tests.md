@@ -357,4 +357,4 @@ Detail Example
 Specialized assertions with TestBench can offer detailed assertion failure output similar to other testing frameworks, but it offers two significant advantages over them:
 
 - Specialized assertions are implemented using the same interface that TestBench users already know (versus, for instance, RSpec’s matcher API which is entirely separate from its testing DSL)
-- Output from block-form assertions can be printed even when the assertions pass, by setting the output level to debug, either via passing `--detail` to the bench executable, or by setting `TEST_BENCH_DETAIL` environment variable to `on`.
+- Unlike typical assertion failure messages from other testing frameworks, output from details can be printed even when the assertions pass, by setting the output level to debug, either via passing `--detail` to the bench executable, or by setting `TEST_BENCH_DETAIL` environment variable to `on`.
