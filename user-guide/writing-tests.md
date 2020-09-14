@@ -331,8 +331,14 @@ In the above example, an assertion failure location would not refer to the corre
 def assert_json(string, caller_location: nil)
   caller_location ||= caller_locations.first
 
-  assert(caller_location: caller_location) do
-    # ...
+  assert(string.is_a?(String), caller_location: caller_location)
+
+  detail "Assert JSON: #{string.to_s[0..100]}"
+
+  test "Can be parsed as JSON" do
+    refute_raises(JSON::ParserError, caller_location: caller_location) do
+      JSON.parse(string)
+    end
   end
 end
 ```
