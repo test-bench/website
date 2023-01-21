@@ -1,6 +1,7 @@
 ---
 home: true
 heroImage: /test-bench-icon-130x115.png
+heroHeight: 115
 description: 'Principled Test Framework for Ruby'
 features:
 
