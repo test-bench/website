@@ -1,4 +1,6 @@
 /package-lock.json
 /node_modules
+/.vuepress/.cache
+/.vuepress/.temp
 /.vuepress/dist
 /_build
