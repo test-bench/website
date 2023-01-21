@@ -69,6 +69,22 @@ context "Some Context" do
 end
 ```
 
+To abort execution of the current testing context, if a test fails, use the `test!` variant:
+
+``` ruby
+context "Some Context" do
+  # Test will fail and then abort the context ("Some Context")
+  test! "Some test" do
+    refute(true)
+  end
+
+  # Will not be executed, since the context has been aborted by the preceding test
+  test "Some other test" do
+    assert(true)
+  end
+end
+```
+
 ### Optional Titles
 
 Titles are optional for both contexts and tests. Contexts without a title serve solely as lexical scopes and do not effect the test output in any way; nothing is printed and the indentation is not changed. Tests without titles are treated similarly, but if a test fails, a title of `Test` is used to indicate the test failure. Also, both contexts and tests can also be skipped by omitting the block argument.
