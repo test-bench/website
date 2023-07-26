@@ -80,12 +80,31 @@ class SomeFixture
 end
 ```
 
+### Object Extension
+
+Objects can be dispositioned as fixtures at runtime by having a module named `Fixture` within their class's namespace. TestBench will extend both the
+`Fixture` module and `TestBench::Fixture` onto the object:
+
+``` ruby
+class SomeClass
+  attr_accessor :some_attr
+
+  module Fixture
+    def assert_some_attr
+      test "Some test" do
+        assert(!!some_attr)
+      end
+    end
+  end
+end
+```
+
 ## Using Fixtures
 
 In addition to TestBench's core API for writing tests, the API also provides the `fixture` method for activating fixtures in a test script.
 
 ``` ruby
-context "Other Context" do
+context "Some Fixture" do
   something = 'some value'
   something_else = something * 2
 
@@ -102,21 +121,37 @@ Other Context
       Included in Something Else
     Something Else
       Twice as long as something
+
+```
+
+In addition to class fixtures, `fixture` accepts objects that include a module named `Fixture` within their class's namespace:
+
+```
+context "Some Object Fixture" do
+  object = SomeClass.new
+
+  fixture(object) do
+    object.assert_some_attr
+  end
+end
 ```
 
 **API**
 
-`fixture(fixture_class, *args, &block)`
+`fixture(fixture_class_or_object, *args, &block)`
 
 **Parameters**
 
 | Name | Description | Type |
-| --- | --- | --- | --- |
-| fixture_class | Fixture class to run | Class |
-| args | Arguments to pass to the fixture class's initializer | Array |
+| ---- | ----------- | ---- |
+| fixture_class_or_object | Fixture class or object that will be actuated | Class, Object |
+| args | Arguments to pass to a fixture class's initializer | Array |
 | block | Additional test code that is executed within the fixture's context | Proc |
 
-The `fixture` method instantiates the fixture class and invokes it's `call` method. The parameters sent to the `fixture` method are passed along to the fixture's initializer.
+When supplied a fixture class, the `fixture` method instantiates the fixture class and invokes it's `call` method. The parameters sent to the `fixture` method are passed along to the fixture's initializer.
+
+When supplied a fixture object, the `fixture` method extends `TestBench::Fixture` onto the object as well as the object's `Fixture` module. If no
+`Fixture` module can be resolved, an error is raised.
 
 The `fixture` method also shares the running test script's output object with the fixture in order to preserve output continuity.
 
@@ -158,6 +193,7 @@ Other Context
   Something Else
     First Character
       Not the same as the last character
+
 ```
 
 ## Exercising Fixtures
@@ -169,9 +205,10 @@ something = 'some value'
 something_else = 'some value'
 
 some_fixture = SomeFixture.new(something, something_else)
-some_fixture.test_session.output = TestBench::Output.build
 
 some_fixture.()
+
+puts TestBench::Fixture.output(some_fixture)
 ```
 
 ```
@@ -180,8 +217,10 @@ Some Context
     Included in Something Else
   Something Else
     Twice as long as something
-      test/automated/fixture.rb:28:in `block (3 levels) in call':
-      Assertion failed (TestBench::Fixture::AssertionFailure)
+      Assertion failed
+
+Failure: 1
+
 ```
 
 ## Testing Fixtures
@@ -221,6 +260,7 @@ SomeFixture
     Passed
   Twice as long as something
     Failed
+
 ```
 
 ## Distributing Fixtures with a Library

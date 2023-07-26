@@ -12,12 +12,15 @@ TestBench doesn't require the use of any special test runner. It's designed so t
 Run test files like any script file by passing the file name to the `ruby` command.
 
 ```
-> ruby test/automated/some_test.rb
-Some Context
-  Some test
-  Some other test
+> ruby test/automated/example.rb
+Example Context
+  Some passing test
+  Some other passing test
   Some failing test
-    test/automated/some_test.rb:13:in `block (2 levels) in <top (required)>': Assertion failed (TestBench::Fixture::AssertionFailure)
+    Assertion failed
+
+Failure: 1
+
 ```
 
 ## Batch Runner
@@ -27,15 +30,15 @@ Runs a batch of files and directories.
 **API**
 
 ```ruby
-TestBench::Run.(*paths, exclude_file_pattern: nil)
+TestBench::Run.(path, exclude: nil)
 ```
 
 **Parameters**
 
 | Name | Description | Type | Default |
 | --- | --- | --- | --- |
-| paths | Single path name or list of path names to run | String or Array | test/automated |
-| exclude_file_pattern | Pattern matching files to exclude | Regex | _init.rb$ |
+| path | Path name to run | String or Array | test/automated |
+| exclude | Pattern matching files to exclude | String | `*_init.rb` |
 
 The batch runner is run from within a Ruby script file.
 
@@ -44,7 +47,7 @@ Here is an example of the batch runner being invoked from a file named `automate
 ```ruby
 # test/automated.rb
 
-TestBench::Run.()
+TestBench::Run.('test/automated')
 ```
 
 ### Batch Runner Output
@@ -52,30 +55,33 @@ TestBench::Run.()
 In addition to the test output printed when running a test using the Ruby executable, the batch runner prints a summary of the results of all the tests.
 
 ```
-Some Context
-  Some test
-  Some other test
+Running test/automated/example.rb
+Example Context
+  Some passing test
+  Some other passing test
   Some failing test
-    test/automated/some_test.rb:13:in `block (2 levels) in <top (required)>': Assertion failed (TestBench::Fixture::AssertionFailure)
+    Assertion failed
 
-Error Summary:
-   1: test/automated/some_test.rb
-      test/automated/some_test.rb:13:in `block (2 levels) in <top (required)>': Assertion failed (TestBench::Fixture::AssertionFailure)
+Failure: 1
 
-Finished running 1 file
-Ran 3 tests in 0.001s (3000.0 tests/second)
-2 passed, 0 skipped, 1 failed, 1 total error
+Failure Summary:
+- test/automated/example.rb: 1 failure
+
+Finished running 1 file, 0 files crashed
+Ran 3 tests in 0.010s (298 tests/second)
+2 passed, 0 skipped, 1 failed
+
 ```
 
 ### Excluding Files
 
 The batch runner allows files or directories to be excluded.
 
-The runner's `exclude_file_pattern` parameter allows a regex pattern to be specified that excluded test files from the batch run. If a file name matches the regex pattern, it will be skipped.
+The runner's `exclude` parameter allows a regex pattern to be specified that excluded test files from the batch run. If a file name matches the regex pattern, it will be skipped.
 
 ``` ruby
 TestBench::Run.('test/automated',
-  exclude_file_pattern: /\/_|_init\.rb\z/
+  exclude: '{_*,*_init}.rb'
 )
 ```
 
@@ -131,37 +137,31 @@ Executing `bench` the `--help` or `-h` switches will print descriptions of the s
 > bench --help
 Usage: bench [options] [paths]
 
-Informational Options
-    -h, --help                       Print this help message and exit successfully
-    -V, --version                    Print version and exit successfully
+Informational Options:
+        -h, --help                        Print this help message and exit successfully
+        -v, --version                     Print version and exit successfully
 
-Configuration Options
-    -a, --[no-]abort-on-error        Exit immediately after any test failure or error (Default: off)
-    -d, --[no-]detail [DETAIL]       Always show (or hide) details (Default: failure)
-    -x, --[no-]exclude PATTERN       Do not execute test files matching PATTERN (Default: /_init.rb$/)
-    -l, --log-level LEVEL            Set the internal logging level to LEVEL (Default: fatal)
-    -o PATTERN,                      Omit backtrace frames matching PATTERN (Default: /test_bench/)
-        --[no-]omit-backtrace
-    -s [on|off|detect],              Render output coloring and font styling escape codes (Default: detect)
-        --output-styling
-    -p                               Do not fail the test run if there are deactivated tests or contexts, e.g. _test or _context (Default: off)
-        --[no-]permit-deactivated-tests
-    -r, --[no-]reverse-backtraces    Reverse order of backtraces when printing errors (Default: off)
-    -v, --[no-]verbose               Increase output verbosity (Default: off)
+Configuration Options:
+        -d, --[no]detail                  Always show (or hide) details (Default: failure)
+        -x, --[no-]exclude PATTERN        Do not execute test files matching PATTERN (Default: "*_init.rb")
+        -f, --[no-]only-failure           Don't display output for test files that pass (Default: off)
+        -o, --output-styling [on|off|detect]
+                                          Render output coloring and font styling escape codes (Default: detect)
+        -s, --seed NUMBER                 Sets pseudo-random number seed (Default: not set)
+
+Other Options:
+        -r, --require LIBRARY             Require LIBRARY before running any files
 
 Paths to test files (and directories containing test files) can be given after any command line arguments or via STDIN (or both).
+
 If no paths are given, a default path (test/automated) is scanned for test files.
 
 The following environment variables can also control execution:
 
-    TEST_BENCH_ABORT_ON_ERROR          Same as -a or --abort-on-error
-    TEST_BENCH_DETAIL                  Same as -d or --detail
-    TEST_BENCH_EXCLUDE_FILE_PATTERN    Same as -x or --exclude-file-pattern
-    TEST_BENCH_LOG_LEVEL               Same as -l or --log-level
-    TEST_BENCH_OMIT_BACKTRACE_PATTERN  Same as -o or --omit-backtrace-pattern
-    TEST_BENCH_OUTPUT_STYLING          Same as -s or --output-styling
-    TEST_BENCH_FAIL_DEACTIVATED_TESTS  Opposite of -p or --permit-deactivated-tests
-    TEST_BENCH_REVERSE_BACKTRACES      Same as -r or --reverse-backtraces
-    TEST_BENCH_VERBOSE                 Same as -v or --reverse-backtraces
+        TEST_BENCH_DETAIL                 Same as -d or --detail
+        TEST_BENCH_EXCLUDE_FILE_PATTERN   Same as -x or --exclude-file-pattern
+        TEST_BENCH_ONLY_FAILURE           Same as -f or --only-failure
+        TEST_BENCH_OUTPUT_STYLING         Same as -o or --output-styling
+        TEST_BENCH_SEED                   Same as -s or --seed
 
 ```

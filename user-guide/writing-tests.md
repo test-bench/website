@@ -85,6 +85,29 @@ context "Some Context" do
 end
 ```
 
+Contexts also have a corresponding `context!` variant:
+
+``` ruby
+context "Some Outer Context" do
+  # Test will fail and then abort the context ("Some Outer Context")
+  context! "Some test" do
+    comment "Some comment"
+    detail "Some detail"
+
+    test do
+      refute(true)
+    end
+  end
+
+  # Will not be executed, since the outer context has been aborted by the preceding context
+  context "Some Other Context" do
+    test "Some test" do
+      assert(true)
+    end
+  end
+end
+```
+
 ### Optional Titles
 
 Titles are optional for both contexts and tests. Contexts without a title serve solely as lexical scopes and do not effect the test output in any way; nothing is printed and the indentation is not changed. Tests without titles are treated similarly, but if a test fails, a title of `Test` is used to indicate the test failure. Also, both contexts and tests can also be skipped by omitting the block argument.
@@ -139,8 +162,6 @@ end
 A test run that includes deactivated contexts or tests will fail. A CI build that includes deactivated tests will result in a broken build.
 
 Deactivated tests and contexts should **never** be checked in to version control. Checking in deactivated test code should be seen as a development process failure.
-
-This behavior can be changed by setting the `TEST_BENCH_FAIL_DEACTIVATED_TESTS` environment variable to `off`.
 :::
 
 ## Comments
@@ -160,13 +181,35 @@ context "Some Context" do
 end
 ```
 
-Multiple lines of text can be given as arguments to `comment`, and each will be indented at the same level as the first:
+Text spanning multiple lines can be given to `comment`, and each line will be indented at the same level as the first:
 
 ```ruby
 context "Some Context" do
-  comment "Multiline", "Comment", "Example"
+  comment "Multiple\nline\ncomment\nexample\n"
 end
 ```
+
+Text spanning multiple lines can be given as an argument to `comment`, and each line will be indented at the same level as the first:
+
+```ruby
+context "Multiple Line Comment" do
+  comment "Multiple\nline\ncomment\nexample\n"
+end
+```
+
+Note: the final character must be a newline to activate the multiple line behavior. Alternatively, the optional boolean argument `quote` can be supplied to `comment` in order to directly control the behavior.
+
+A heading can also be given:
+
+```ruby
+context "Multiple Line Comment" do
+  comment "Some Heading:", "Multiple\nline\ncomment\nexample\n"
+end
+```
+
+Output:
+
+![Multiple Line Commment](/multiple-line-comment.png)
 
 ## Details
 
@@ -188,12 +231,12 @@ context "Some Context" do
 end
 ```
 
-Like comments, multiple lines of text can be given to `detail`, and each will be indented at the same level as the first:
+Like comments, multiple lines and headers can be given to `detail`, and each line will be indented at the same level as the first:
 
 ```ruby
 context "Some Context" do
   test "Failing test" do
-    detail "Multiline", "Detail", "Example"
+	detail "Some Heading:", "Multiple\nline\ncomment\nexample\n"
 
     assert(false)
   end
@@ -318,7 +361,7 @@ TestBench itself uses details in the `assert_raises` and `refute_raises` asserti
 An example of using details to provide extra output for a higher level assertion:
 
 ```ruby
-context "Detail Example" do
+context "Specialized Assertion Example" do
   def assert_json(string)
     detail "Assert JSON: #{string.to_s[0..100]}"
 
@@ -341,39 +384,21 @@ context "Detail Example" do
 end
 ```
 
-In the above example, an assertion failure location would not refer to the correct source code file and line number. An optional caller_location keyword argument can be passed to the assertion to specify the actual failure location.
-
-```ruby
-def assert_json(string, caller_location: nil)
-  caller_location ||= caller_locations.first
-
-  assert(string.is_a?(String), caller_location: caller_location)
-
-  detail "Assert JSON: #{string.to_s[0..100]}"
-
-  test "Can be parsed as JSON" do
-    refute_raises(JSON::ParserError, caller_location: caller_location) do
-      JSON.parse(string)
-    end
-  end
-end
-```
-
 Here is the output of running the above test. Notice that, while the passing test case prints no output, the failing test case prints out detailed failure information:
 
 ```
-Detail Example
+Specialized Assertion Example
   Pass
-    Assert JSON: { "someKey": "some-value" }
     Can be parsed as JSON
-      Prohibited Error: JSON::ParserError (strict)
-      (No error was raised)
   Failure
     Assert JSON: not-a-json-document
     Can be parsed as JSON
-      Prohibited Error: JSON::ParserError (strict)
-      Raised Error: #<JSON::ParserError: 783: unexpected token at 'not-a-json-document'>
-      scratch/json_example.rb:14:in `block in assert_json': Assertion failed (TestBench::Fixture::AssertionFailure)
+      Prohibited exception: JSON::ParserError (strict)
+      Raised exception: #<JSON::ParserError: unexpected token at 'not-a-json-document'>
+      Assertion failed
+
+Failure: 1
+
 ```
 
 Specialized assertions with TestBench can offer detailed assertion failure output similar to other testing frameworks, but it offers two significant advantages over them:

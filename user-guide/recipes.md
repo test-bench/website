@@ -103,25 +103,29 @@ find test/automated -name '*.rb' | awk 'NR % 2 == 1' | bench &
 wait
 ```
 
-## Change TestBench's Output Device
+## Register a Telemetry Sink
 
-TestBench's output device can be set via `TestBench.output=` attribute.
+TestBench sessions publish telemetry. TestBench's own output is just a telemetry subscriber, or _sink_. A _handler_ is a kind of sink that can handle
+telemetry events with special handler methods:
 
 ```ruby
+class SomeTelemetryHandler
+  include TestBench::Telemetry::Sink::Handler
+
+  # Bring TestBench's event classes into the class's namespace
+  include TestBench::Session::Events
+
+  handle TestFinished do |test_finished|
+    result = test_finished.result ? 'pass' : 'failure'
+
+    puts "Test finished. Result: #{result}"
+  end
+end
+
 # test/test_init.rb
-
-# ...
-
-TestBench.output = SomeOutput.new
+telemetry_handler = SomeTelemetryHandler.new
+TestBench.telemetry.register(telemetry_handler)
 ```
-
-Multiple outputs can also be assigned via an array, e.g.:
-
-```ruby
-TestBench.output = [TestBench::Output.build, SomeOutput.new]
-```
-
-To write custom output classes, mix in the [TestBench::Fixture::Output module](https://github.com/test-bench/test-bench-fixture/blob/master/lib/test_bench/fixture/output.rb). The arguments given to each method are the data relevant to the output method. For instance, the `finish_test` method has two parameters, `title` and `result`. `title` is the text string that's supplied to `test` (or `nil` if the test has no title), and `result` is a boolean indicating whether the test passed or failed.
 
 ## Re-Run Failed Tests
 
@@ -137,16 +141,19 @@ The following script will run the test files contained in `test/automated` and p
 require 'test_bench'
 
 class PrintFailedTestFiles
-  include TestBench::Fixture::Output
+  include TestBench::Telemetry::Sink::Handler
 
-  def exit_file(path, result)
+  handle FileFinished do |file_finished|
+    file = file_finished.file
+    result = file_finished.result
+
     failed = result ? false : true
 
-    STDOUT.puts(path) if failed
+    STDOUT.puts(file) if failed
   end
 end
 
-TestBench.output = PrintFailedTestFiles.new
+TestBench.telemetry.register(PrintFailedTestFiles.new)
 
 TestBench::Run.('test/automated')
 ```

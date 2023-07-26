@@ -234,7 +234,7 @@ For example, you can use a pattern that skips files that start with the undersco
 # test/automated.rb
 
 TestBench::Run.('test/some_directory',
-  exclude_file_pattern: /\/_|_init\.rb\z/
+  exclude: "{_*,*_init}.rb"
 )
 ```
 
