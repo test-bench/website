@@ -112,7 +112,7 @@ context "Some Fixture" do
 end
 ```
 
-The `fixture` method runs the test code in the fixture as if it's part of the currently running test, maintaining the continuity of the output and indenting.
+The `fixture` method runs the test code in the fixture as if its part of the currently running test, maintaining the continuity of the output and indenting.
 
 ```
 Other Context
@@ -148,7 +148,7 @@ end
 | args | Arguments to pass to a fixture class's initializer | Array |
 | block | Additional test code that is executed within the fixture's context | Proc |
 
-When supplied a fixture class, the `fixture` method instantiates the fixture class and invokes it's `call` method. The parameters sent to the `fixture` method are passed along to the fixture's initializer.
+When supplied a fixture class, the `fixture` method instantiates the fixture class and invokes its `call` method. The parameters sent to the `fixture` method are passed along to the fixture's initializer.
 
 When supplied a fixture object, the `fixture` method extends `TestBench::Fixture` onto the object as well as the object's `Fixture` module. If no
 `Fixture` module can be resolved, an error is raised.
