@@ -1,6 +1,9 @@
 {
   "dependencies": {
-    "vuepress": "2.0.0-beta.60",
-    "@vuepress/plugin-search": "next"
+    "vuepress": "2.0.0-rc.23",
+    "@vuepress/bundler-vite": "next",
+    "@vuepress/plugin-search": "next",
+    "@vuepress/theme-default": "next",
+    "sass": "latest"
   }
 }

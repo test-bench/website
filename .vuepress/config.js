@@ -1,4 +1,5 @@
 import { defaultTheme } from '@vuepress/theme-default';
+import { viteBundler } from '@vuepress/bundler-vite';
 import { searchPlugin } from '@vuepress/plugin-search';
 
 export default {
@@ -38,5 +39,6 @@ export default {
         text: 'Code', link: 'https://github.com/test-bench/test-bench'
       }
     ]
-  })
+  }),
+  bundler: viteBundler()
 }
