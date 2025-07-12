@@ -1,5 +1,4 @@
 ---
-sidebar: auto
 sidebarDepth: 1
 ---
 
@@ -16,8 +15,6 @@ A fixture is just a plain old Ruby object that includes the TestBench API. A fix
 ### Callable Object
 
 The only requirement placed on a fixture's API is that it implements Ruby's _callable object_ protocol by implementing the `call` method, and that the signature of the method is parameterless.
-
-Alternatively, if the `call` method is not implemented on a fixture, then a [block must be given](#additional-block). When a block is given, the fixture object doesn't have to implement the callable object protocol. If `call` is implemented and a block is given, the block has precedence.
 
 ### Fixture State and the Initializer
 
@@ -38,7 +35,7 @@ class SomeFixture
 end
 ```
 
-If the fixture class implements a method named `build`, that method will be used to construct an instance rather than the initializer, leaving the developer the freedom to either implement the `initialize` method or not, or implement it whatever is preferred.
+If the fixture class implements a method named `build`, that method will be used to construct an instance rather than the initializer, leaving the developer the freedom to either implement the `initialize` method or not.
 
 ## Implementing Fixtures
 
@@ -80,25 +77,6 @@ class SomeFixture
 end
 ```
 
-### Object Extension
-
-Objects can be dispositioned as fixtures at runtime by having a module named `Fixture` within their class's namespace. TestBench will extend both the
-`Fixture` module and `TestBench::Fixture` onto the object:
-
-``` ruby
-class SomeClass
-  attr_accessor :some_attr
-
-  module Fixture
-    def assert_some_attr
-      test "Some test" do
-        assert(!!some_attr)
-      end
-    end
-  end
-end
-```
-
 ## Using Fixtures
 
 In addition to TestBench's core API for writing tests, the API also provides the `fixture` method for activating fixtures in a test script.
@@ -124,29 +102,19 @@ Other Context
 
 ```
 
-In addition to class fixtures, `fixture` accepts objects that include a module named `Fixture` within their class's namespace:
-
-```
-context "Some Object Fixture" do
-  object = SomeClass.new
-
-  fixture(object) do
-    object.assert_some_attr
-  end
-end
-```
-
 **API**
 
-`fixture(fixture_class_or_object, *args, &block)`
+`fixture(fixture_class, *args, **kwargs, test_session: nil, &block)`
 
 **Parameters**
 
-| Name | Description | Type |
-| ---- | ----------- | ---- |
-| fixture_class_or_object | Fixture class or object that will be actuated | Class, Object |
-| args | Arguments to pass to a fixture class's initializer | Array |
-| block | Additional test code that is executed within the fixture's context | Proc |
+| Name          | Description                                                  | Type                 |
+| ------------- | ------------------------------------------------------------ | -------------------- |
+| fixture_class | Fixture class that will be actuated                          | `Class`              |
+| args          | Arguments to pass to the fixture class's initializer         | `Array`              |
+| kwargs        | Keyword arguments to pass to the fixture class's initializer | `Hash`               |
+| test_session  | Reserved for used internally by TestBench                    | `TestBench::Session` |
+| block         | Block argument to pass to the fixture class's initializer    | `Proc`               |
 
 When supplied a fixture class, the `fixture` method instantiates the fixture class and invokes its `call` method. The parameters sent to the `fixture` method are passed along to the fixture's initializer.
 
@@ -154,47 +122,6 @@ When supplied a fixture object, the `fixture` method extends `TestBench::Fixture
 `Fixture` module can be resolved, an error is raised.
 
 The `fixture` method also shares the running test script's output object with the fixture in order to preserve output continuity.
-
-### Additional Block
-
-When the generalization provided by a fixture is not enough, the fixture can be specialized for a particular circumstance by supplying an additional block of test code.
-
-When a block is given, the fixture object doesn't have to implement the [callable object protocol](#callable-object).
-
-``` ruby
-context "Other Context" do
-  something = 'some value'
-  something_else = 'some value' * 2
-
-  fixture(SomeFixture, something, something_else) do |f|
-    context "Something Else" do
-      context "First Character" do
-        first_character = f.something_else[0]
-        last_character = f.something_else[-1]
-
-        same = first_character == last_character
-
-        test "Not the same as the last character" do
-          refute(same)
-        end
-      end
-    end
-  end
-end
-```
-
-```
-Other Context
-  Some Context
-    Something
-      Included in Something Else
-    Something Else
-      Twice as long as something
-  Something Else
-    First Character
-      Not the same as the last character
-
-```
 
 ## Exercising Fixtures
 
@@ -261,6 +188,19 @@ SomeFixture
   Twice as long as something
     Failed
 
+```
+
+A fixture's output can be printed by supplying the fixture to the `comment` or `detail` method:
+
+```ruby
+context "SomeFixture" do
+  some_fixture = SomeFixture.new(something, something_else)
+
+  # Prints the fixture's output
+  comment some_fixture
+
+  # ...
+end
 ```
 
 ## Distributing Fixtures with a Library

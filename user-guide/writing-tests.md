@@ -1,11 +1,10 @@
 ---
-sidebar: auto
 sidebarDepth: 2
 ---
 
 # Writing Tests
 
-TestBench's core API is just a handful of methods, including `context`, `test`, `assert`, `comment`, and `fixture`. Other methods, such as `refute` and `assert_raises` are built in terms of the core methods.
+TestBench's core API is just a handful of methods, including `context`, `test`, `assert`, `comment`, and `fixture`. Other methods, such as `refute`, `detail`, and `assert_raises` are built in terms of the core methods.
 
 ## Context and Test Blocks
 
@@ -159,7 +158,7 @@ end
 ```
 
 ::: danger
-A test run that includes deactivated contexts or tests will fail. A CI build that includes deactivated tests will result in a broken build.
+A test run that includes deactivated contexts or tests will fail if the `TEST_BENCH_STRICT` environment variable is set to `on`. A CI build that includes deactivated tests can be expected to produce a build failure.
 
 Deactivated tests and contexts should **never** be checked in to version control. Checking in deactivated test code should be seen as a development process failure.
 :::
@@ -197,7 +196,16 @@ context "Multiple Line Comment" do
 end
 ```
 
-Note: the final character must be a newline to activate the multiple line behavior. Alternatively, the optional boolean argument `quote` can be supplied to `comment` in order to directly control the behavior.
+Note: the final character must be a newline to activate the multiple line behavior. Alternatively, the optional keyword argument `style` can be supplied to `comment` that directly controls the behavior. The styles:
+
+| Style            | Description                                                     |
+| ---              | ---                                                             |
+| detect (default) | `block` for newline terminated text, otherwise `normal`         |
+| normal           | Comment text is indented once                                   |
+| block            | Each line of comment text is indented                           |
+| line_number      | Like `block`, but with a line number marker preceding each line |
+| heading          | Like `normal`, but with bold styling                            |
+| raw              | Comment text is printed verbatim without any indentation        |
 
 A heading can also be given:
 
@@ -249,7 +257,7 @@ TestBench offers four assertion methods: `assert`, `refute`, `assert_raises`, an
 
 ### Assert and Refute
 
-The `assert` and `refute` methods accept a single parameter. The value of the parameter must either be true or false, or _truthy_.
+The `assert` and `refute` methods accept a single parameter. The value of the parameter must either be true or false.
 
 ```ruby
 assert(true)               # Passes
@@ -404,4 +412,4 @@ Failure: 1
 Specialized assertions with TestBench can offer detailed assertion failure output similar to other testing frameworks, but it offers two significant advantages over them:
 
 - Specialized assertions are implemented using the same interface that TestBench users already know (versus, for instance, RSpec’s matcher API which is entirely separate from its testing DSL)
-- Unlike typical assertion failure messages from other testing frameworks, output from details can be printed even when the assertions pass, by setting the output level to debug, either via passing `--detail` to the bench executable, or by setting `TEST_BENCH_DETAIL` environment variable to `on`.
+- Unlike typical assertion failure messages from other testing frameworks, output from details can be printed even when the assertions pass, by setting the output level to debug, either via passing `--detail` to the `bench` executable, or by setting `TEST_BENCH_DETAIL` environment variable to `on`.

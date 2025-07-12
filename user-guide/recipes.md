@@ -1,5 +1,4 @@
 ---
-sidebar: auto
 sidebarDepth: 1
 ---
 
@@ -20,7 +19,7 @@ The `bench` [executable](/user-guide/running-tests.md) can run all tests in a si
 In cases where gems are installed locally within a project, the `bench` executable must be run from wherever the project installs executable files for gems. For instance:
 
 ```
-> ./gems/bin/bench test/automated/some_directory
+> ./gems/exec/bench test/automated/some_directory
 ```
 
 ## Use TestBench Without Monkey Patching
@@ -49,9 +48,9 @@ TestBench.evaluate do
 end
 ```
 
-TestBench never modifies Ruby's `Object` class. It modifies Ruby's `main` object, which is Ruby's script runner. The effect of activating TestBench is the addition of the methods `context`, `test`, `assert`, `refute`, `assert_raises`, `refute_raises`, and `comment`,  to the `main` object.
+TestBench never modifies Ruby's `Object` class. It modifies Ruby's `main` object, which is Ruby's script runner. The effect of activating TestBench is the addition of the methods `context`, `context!`, `test`, `test!`, `assert`, `refute`, `assert_raises`, `refute_raises` `comment`, `detail`, and `fixture` to the `main` object.
 
-The `main` object is just the runner object within which Ruby executes script files. Adding TestBench's rather small API to the runner is extremely unlikely to cause the problems experienced when test frameworks presume to modify `Object`, `BasicObject`, or `Kernel`, which causes sweeping changes to the entire Ruby environment and all the classes and objects within it.
+The `main` object is just the runner object within which Ruby executes script files. Adding TestBench's rather small API to the runner is extremely unlikely to cause the problems experienced when test frameworks modify `Object`, `BasicObject`, or `Kernel`, which causes sweeping changes to the entire Ruby environment and all the classes and objects within it.
 
 ## Randomize Test Execution Order
 
@@ -105,8 +104,7 @@ wait
 
 ## Register a Telemetry Sink
 
-TestBench sessions publish telemetry. TestBench's own output is just a telemetry subscriber, or _sink_. A _handler_ is a kind of sink that can handle
-telemetry events with special handler methods:
+TestBench sessions publish telemetry. TestBench's own output is just a telemetry subscriber, or _sink_. A _handler_ is a kind of sink that can handle telemetry events with special handler methods:
 
 ```ruby
 class SomeTelemetryHandler
@@ -124,7 +122,7 @@ end
 
 # test/test_init.rb
 telemetry_handler = SomeTelemetryHandler.new
-TestBench.telemetry.register(telemetry_handler)
+TestBench.register_telemetry_sink(telemetry_handler)
 ```
 
 ## Re-Run Failed Tests
@@ -153,7 +151,7 @@ class PrintFailedTestFiles
   end
 end
 
-TestBench.telemetry.register(PrintFailedTestFiles.new)
+TestBench.register_telemetry_sink(PrintFailedTestFiles.new)
 
 TestBench::Run.('test/automated')
 ```

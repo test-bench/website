@@ -30,7 +30,7 @@ end
 
 ## Initialize TestBench
 
-Place a test initialization file at test/test_init.rb.
+Place a test initialization file at `test/test_init.rb`.
 
 ``` ruby
 # test/test_init.rb

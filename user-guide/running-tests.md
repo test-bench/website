@@ -1,5 +1,4 @@
 ---
-sidebar: auto
 sidebarDepth: 2
 ---
 
@@ -67,9 +66,9 @@ Failure: 1
 Failure Summary:
 - test/automated/example.rb: 1 failure
 
-Finished running 1 file, 0 files crashed
-Ran 3 tests in 0.010s (298 tests/second)
-2 passed, 0 skipped, 1 failed
+Attempted 1 file: 1 completed, 0 aborted, 0 not found
+3 tests in 0.01 seconds (298.59 tests/sec)
+2 passed, 1 failed, 0 skipped
 
 ```
 
@@ -77,7 +76,7 @@ Ran 3 tests in 0.010s (298 tests/second)
 
 The batch runner allows files or directories to be excluded.
 
-The runner's `exclude` parameter allows a regex pattern to be specified that excluded test files from the batch run. If a file name matches the regex pattern, it will be skipped.
+The runner's `exclude` parameter allows a shell glob pattern to be specified that excluded test files from the batch run. If a file name matches the pattern, it will be skipped.
 
 ``` ruby
 TestBench::Run.('test/automated',
@@ -113,7 +112,7 @@ To run a directory of test files, and its subdirectories, specify the directory 
 
 By default, when the `bench` commend is executed with no arguments, it will run all the test files under `test/automated`.
 
-This default can be changed by setting the environment variable `TEST_BENCH_TESTS_DIRECTORY`.
+This default can be changed by setting the environment variable `TEST_BENCH_DEFAULT_TEST_PATH`.
 
 ### Piping Into the CLI
 
@@ -133,35 +132,101 @@ Each of the switches also has a corresponding environment variable which allows 
 
 Executing `bench` the `--help` or `-h` switches will print descriptions of the switches.
 
-``` bash
+```
 > bench --help
 Usage: bench [options] [paths]
 
 Informational Options:
-        -h, --help                        Print this help message and exit successfully
-        -v, --version                     Print version and exit successfully
+  Help:
+      -h, --help
+          Print this help message and exit immediately
 
-Configuration Options:
-        -d, --[no]detail                  Always show (or hide) details (Default: failure)
-        -x, --[no-]exclude PATTERN        Do not execute test files matching PATTERN (Default: "*_init.rb")
-        -f, --[no-]only-failure           Don't display output for test files that pass (Default: off)
-        -o, --output-styling [on|off|detect]
-                                          Render output coloring and font styling escape codes (Default: detect)
-        -s, --seed NUMBER                 Sets pseudo-random number seed (Default: not set)
+Execution Options:
+  Abort On Failure:
+      -a, --abort-on-failure
+          Stops execution if a test fails or a test file aborts
 
-Other Options:
-        -r, --require LIBRARY             Require LIBRARY before running any files
+  Exclude File Patterns:
+      -x, --exclude PATTERN
+          Exclude test files that match PATTERN
+          If multiple --exclude arguments are supplied, then files that match any will be excluded
+      -X, --no-exclude
+          Don't exclude any files
+      Default: '*_init.rb'
+
+  Strict:
+      -s, --strict
+          Prohibit skipped tests and contexts, and require at least one test to be performed
+      -S, --no-strict
+          Relax strictness
+      Default: non strict, unless TEST_BENCH_STRICT is set to 'on'
+
+  Require Library:
+      -r, --require LIBRARY
+          Require LIBRARY before running any files
+      -I, --include DIR
+          Add DIR to the load path
+
+  Random Seed:
+      --random-seed SEED
+          Pseudorandom number seed
+
+Output Options:
+  Backtrace Formatting:
+      -b, --omit-backtrace PATTERN
+          Omits backtrace frames that match PATTERN
+          If multiple --omit-backtrace arguments are supplied, then frames that match any will be omitted
+
+  Detail:
+      -d, --detail
+          Always show details
+      -D, --no-detail
+          Never show details
+      Default: print details when their surrounding context failed, unless TEST_DETAIL is set to 'on' or 'off'
+
+  Device:
+      --device DEVICE
+          stderr: redirect output to standard error
+          null: don't write any output
+      Default: stdout
+
+  Verbosity:
+      -l, --output-level LEVEL
+          all: print output from every file
+          not-passing: print output from files that skip tests and contexts or don't perform any tests
+          failure: print output only from files that failed or aborted
+          abort: print output only from file that aborted
+      -q, --quiet
+          Sets output verbosity level to 'not-passing'
+      Default: all
+
+  Styling:
+      -o, --output-styling
+          Enable output text styling
+      -O, --no-output-styling
+          Disable output text styling
+      Default: enabled if the output device is an interactive terminal
+
+  Summary:
+      --no-summary
+          Don't print summary after running files
 
 Paths to test files (and directories containing test files) can be given after any command line arguments or via STDIN (or both).
 
-If no paths are given, a default path (test/automated) is scanned for test files.
+If no paths are given, the directory 'test/automated' is scanned for test files.
 
 The following environment variables can also control execution:
 
-        TEST_BENCH_DETAIL                 Same as -d or --detail
-        TEST_BENCH_EXCLUDE_FILE_PATTERN   Same as -x or --exclude-file-pattern
-        TEST_BENCH_ONLY_FAILURE           Same as -f or --only-failure
-        TEST_BENCH_OUTPUT_STYLING         Same as -o or --output-styling
-        TEST_BENCH_SEED                   Same as -s or --seed
+  TEST_BENCH_ABORT_ON_FAILURE           See --abort-on-failure
+  TEST_BENCH_EXCLUDE_FILE_PATTERN       See --exclude
+  TEST_BENCH_OUTPUT_SUMMARY             See --no-summary
+  TEST_BENCH_STRICT                     See --strict
+  TEST_BENCH_RANDOM_SEED                See --random-seed
+  TEST_BENCH_FILTER_BACKTRACE_PATTERN   See --filter-backtrace
+  TEST_BENCH_OUTPUT_DETAIL              See --detail
+  TEST_BENCH_OUTPUT_DEVICE              See --device
+  TEST_BENCH_OUTPUT_LEVEL               See --output-level
+  TEST_BENCH_OUTPUT_STYLING             See --output-styling
+  TEST_BENCH_DEFAULT_TEST_PATH          Specifies default path
 
 ```
