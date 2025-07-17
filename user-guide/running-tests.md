@@ -228,5 +228,6 @@ The following environment variables can also control execution:
   TEST_BENCH_OUTPUT_LEVEL               See --output-level
   TEST_BENCH_OUTPUT_STYLING             See --output-styling
   TEST_BENCH_DEFAULT_TEST_PATH          Specifies default path
+  TEST_BENCH_OPTIONS                    Evaluated as command line arguments similar to RUBYOPT
 
 ```
